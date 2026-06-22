@@ -1,6 +1,5 @@
 import express, { Application } from "express"
 import cors from "cors"
-import { prisma } from "./lib/prisma"
 import { indexRoutes } from "./app/routes"
 
 const app: Application = express()
