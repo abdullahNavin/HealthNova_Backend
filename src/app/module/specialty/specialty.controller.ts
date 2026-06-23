@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { specialtyService } from "./specialty.service";
-import { Speciality } from "../../../generated/prisma/client";
+import { Specialty } from "../../../generated/prisma/client";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendRespons";
 
 const createSpecialty = async (req: Request, res: Response) => {
-    const payload = req.body as Speciality
+    const payload = req.body as Specialty
 
     if (!payload.title) {
         return sendResponse(res, {
