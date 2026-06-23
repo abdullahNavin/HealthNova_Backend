@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "generate": "pnpm dlx prisma generate",
+    "migrate": "pnpm dlx prisma migrate dev"
   },
   "keywords": [],
   "type": "module",
@@ -27,6 +29,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "better-auth": "^1.6.20",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "pg": "^8.21.0"

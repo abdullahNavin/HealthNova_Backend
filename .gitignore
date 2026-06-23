@@ -3,6 +3,7 @@ node_modules
 .env
 
 src/generated
+
 dist
 coverage
 logs
