@@ -2,14 +2,18 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { Role, Status } from "../generated/prisma/enums";
+import { env } from "../config/env";
 
 export const auth = betterAuth({
+    baseURL: env.BETTER_AUTH_URL,
+    trustedOrigins: [env.FRONTEND_URL],
     database: prismaAdapter(prisma, {
         provider: "postgresql",
     }),
     emailAndPassword: {
         enabled: true,
     },
+
     user: {
         additionalFields: {
             needPasswordReset: {

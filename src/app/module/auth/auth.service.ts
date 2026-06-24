@@ -18,7 +18,7 @@ const registerPatient = async (payload: RegisterPatientPayload) => {
 
     if (!data.user) throw new Error("User not created")
 
-    return data.user
+    return data
 }
 
 const signInPatient = async (email: string, password: string) => {
@@ -30,7 +30,7 @@ const signInPatient = async (email: string, password: string) => {
     })
     if (!data.user) throw new Error("Invalid credentials")
 
-    return data.user
+    return data
 }
 
 export const authService = {
