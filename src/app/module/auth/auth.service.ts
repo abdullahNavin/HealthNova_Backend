@@ -1,4 +1,5 @@
 import { auth } from "../../../lib/auth"
+import { prisma } from "../../../lib/prisma"
 
 interface RegisterPatientPayload {
     name: string,
@@ -18,7 +19,18 @@ const registerPatient = async (payload: RegisterPatientPayload) => {
 
     if (!data.user) throw new Error("User not created")
 
-    return data
+    const patient = await prisma.$transaction(async (tx) => {
+        const patient = await tx.patient.create({
+            data: {
+                userId: data.user.id,
+                name: name,
+                email: email
+            }
+        })
+        return patient
+    })
+
+    return {...data, patient}
 }
 
 const signInPatient = async (email: string, password: string) => {
