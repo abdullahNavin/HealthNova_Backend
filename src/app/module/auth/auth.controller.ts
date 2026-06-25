@@ -3,12 +3,13 @@ import { catchAsync } from "../../shared/catchAsync";
 import { authService } from "./auth.service";
 import { sendResponse } from "../../shared/sendRespons";
 import { fromNodeHeaders } from "better-auth/node";
+import { StatusCodes } from "http-status-codes";
 
 const registerPatient = catchAsync(async (req: Request, res: Response) => {
     const { name, email, password } = req.body
     const user = await authService.registerPatient({ name, email, password })
     sendResponse(res, {
-        status: 201,
+        status: StatusCodes.CREATED,
         message: "User registered successfully",
         data: user
     })
@@ -32,7 +33,7 @@ const signInPatient = catchAsync(async (req: Request, res: Response) => {
     // });
 
     sendResponse(res, {
-        status: 200,
+        status: StatusCodes.OK,
         message: "User signed in successfully",
         data: result,
     });
