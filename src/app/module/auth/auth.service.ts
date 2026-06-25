@@ -19,18 +19,28 @@ const registerPatient = async (payload: RegisterPatientPayload) => {
 
     if (!data.user) throw new Error("User not created")
 
-    const patient = await prisma.$transaction(async (tx) => {
-        const patient = await tx.patient.create({
-            data: {
-                userId: data.user.id,
-                name: name,
-                email: email
+    try {
+        const patient = await prisma.$transaction(async (tx) => {
+            const patient = await tx.patient.create({
+                data: {
+                    userId: data.user.id,
+                    name: name,
+                    email: email
+                }
+            })
+            return patient
+        })
+
+        return { ...data, patient }
+
+    } catch (error) {
+        await prisma.user.delete({
+            where: {
+                id: data.user.id
             }
         })
-        return patient
-    })
-
-    return {...data, patient}
+        throw new Error(error as string)
+    }
 }
 
 const signInPatient = async (email: string, password: string) => {
