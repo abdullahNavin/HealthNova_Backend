@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { userController } from "./user.controller";
 import { createDoctorSchema } from "./user.validation";
-import { validateReq } from "../../shared/validateReq";
+import { validateReq } from "../../middleware/validateReq";
 
 
 const router: Router = Router()
