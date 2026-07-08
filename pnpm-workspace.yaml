@@ -1,4 +1,5 @@
 allowBuilds:
   '@prisma/engines': false
   esbuild: false
+  node-base64: set this to true or false
   prisma: false

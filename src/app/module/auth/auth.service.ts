@@ -1,5 +1,7 @@
+import { Status } from "../../../generated/prisma/enums"
 import { auth } from "../../../lib/auth"
 import { prisma } from "../../../lib/prisma"
+import { getAccessToken, getRefreshToken } from "../../utils/token"
 
 interface RegisterPatientPayload {
     name: string,
@@ -51,8 +53,30 @@ const signInPatient = async (email: string, password: string) => {
         }
     })
     if (!data.user) throw new Error("Invalid credentials")
+    if (data.user.status !== Status.ACTIVE) throw new Error("User is not active")
+    if (data.user.isDeleted) throw new Error("User is deleted")
 
-    return data
+    const accessToken = getAccessToken({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.name,
+        role: data.user.role,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted,
+        emailVerified: data.user.emailVerified
+    })
+
+    const refreshToken = getRefreshToken({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.name,
+        role: data.user.role,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted,
+        emailVerified: data.user.emailVerified
+    })
+
+    return { ...data, accessToken, refreshToken }
 }
 
 export const authService = {

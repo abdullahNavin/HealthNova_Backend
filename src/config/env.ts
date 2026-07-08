@@ -9,6 +9,10 @@ interface ImportMetaEnv {
     readonly BETTER_AUTH_URL: string;
     readonly FRONTEND_URL: string;
     readonly DATABASE_URL: string;
+    readonly ACCESS_TOKEN_SECRET: string;
+    readonly REFRESH_TOKEN_SECRET: string;
+    readonly ACCESS_TOKEN_EXPIRATION: string;
+    readonly REFRESH_TOKEN_EXPIRATION: string;
 }
 
 const envImport = (): ImportMetaEnv => {
@@ -19,7 +23,11 @@ const envImport = (): ImportMetaEnv => {
         'DATABASE_URL',
         'FRONTEND_URL',
         'PORT',
-        'NODE_ENV'
+        'NODE_ENV',
+        'ACCESS_TOKEN_SECRET',
+        'REFRESH_TOKEN_SECRET',
+        'ACCESS_TOKEN_EXPIRATION',
+        'REFRESH_TOKEN_EXPIRATION'
     ];
 
     for (const varName of requiredEnvVars) {
@@ -34,7 +42,11 @@ const envImport = (): ImportMetaEnv => {
         BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET || '',
         BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || '',
         FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
-        DATABASE_URL: process.env.DATABASE_URL || ''
+        DATABASE_URL: process.env.DATABASE_URL || '',
+        ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || '',
+        REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || '',
+        ACCESS_TOKEN_EXPIRATION: process.env.ACCESS_TOKEN_EXPIRATION || '1d',
+        REFRESH_TOKEN_EXPIRATION: process.env.REFRESH_TOKEN_EXPIRATION || '7d'
     }
 }
 
