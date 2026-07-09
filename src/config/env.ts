@@ -13,6 +13,8 @@ interface ImportMetaEnv {
     readonly REFRESH_TOKEN_SECRET: string;
     readonly ACCESS_TOKEN_EXPIRATION: string;
     readonly REFRESH_TOKEN_EXPIRATION: string;
+    readonly BETTER_AUTH_TOKEN_EXPIRATION: string;
+    readonly BETTER_AUTH_TOKEN_UPDATE_EXPIRATION: string;
 }
 
 const envImport = (): ImportMetaEnv => {
@@ -27,7 +29,9 @@ const envImport = (): ImportMetaEnv => {
         'ACCESS_TOKEN_SECRET',
         'REFRESH_TOKEN_SECRET',
         'ACCESS_TOKEN_EXPIRATION',
-        'REFRESH_TOKEN_EXPIRATION'
+        'REFRESH_TOKEN_EXPIRATION',
+        'BETTER_AUTH_TOKEN_EXPIRATION',
+        'BETTER_AUTH_TOKEN_UPDATE_EXPIRATION'
     ];
 
     for (const varName of requiredEnvVars) {
@@ -46,7 +50,9 @@ const envImport = (): ImportMetaEnv => {
         ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || '',
         REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || '',
         ACCESS_TOKEN_EXPIRATION: process.env.ACCESS_TOKEN_EXPIRATION || '1d',
-        REFRESH_TOKEN_EXPIRATION: process.env.REFRESH_TOKEN_EXPIRATION || '7d'
+        REFRESH_TOKEN_EXPIRATION: process.env.REFRESH_TOKEN_EXPIRATION || '7d',
+        BETTER_AUTH_TOKEN_EXPIRATION: process.env.BETTER_AUTH_TOKEN_EXPIRATION || '1d',
+        BETTER_AUTH_TOKEN_UPDATE_EXPIRATION: process.env.BETTER_AUTH_TOKEN_UPDATE_EXPIRATION || '1d'
     }
 }
 

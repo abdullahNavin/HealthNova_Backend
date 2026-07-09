@@ -2,12 +2,17 @@ import { Request, Response } from "express";
 import { catchAsync } from "../../shared/catchAsync";
 import { authService } from "./auth.service";
 import { sendResponse } from "../../shared/sendRespons";
-import { fromNodeHeaders } from "better-auth/node";
 import { StatusCodes } from "http-status-codes";
+import { setAccessToken, setBetterAuthToken, setRefreshToken } from "../../utils/token";
 
 const registerPatient = catchAsync(async (req: Request, res: Response) => {
     const { name, email, password } = req.body
     const user = await authService.registerPatient({ name, email, password })
+
+    setAccessToken(res, user.accessToken)
+    setRefreshToken(res, user.refreshToken)
+    setBetterAuthToken(res, user.token as string)
+
     sendResponse(res, {
         status: StatusCodes.CREATED,
         message: "User registered successfully",
@@ -21,16 +26,11 @@ const signInPatient = catchAsync(async (req: Request, res: Response) => {
     const result = await authService.signInPatient(
         email,
         password,
-        // fromNodeHeaders(req.headers)
     );
 
-    // result.headers.forEach((value, key) => {
-    //     if (key.toLowerCase() === "set-cookie") {
-    //         res.append("Set-Cookie", value);
-    //     } else {
-    //         res.setHeader(key, value);
-    //     }
-    // });
+    setAccessToken(res, result.accessToken)
+    setRefreshToken(res, result.refreshToken)
+    setBetterAuthToken(res, result.token)
 
     sendResponse(res, {
         status: StatusCodes.OK,
