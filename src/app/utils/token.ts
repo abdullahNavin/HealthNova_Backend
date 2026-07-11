@@ -25,7 +25,8 @@ const setAccessToken = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(ms(Number(env.ACCESS_TOKEN_EXPIRATION)))
+        // 1 day
+        maxAge: 60 * 60 * 24
     })
 }
 
@@ -35,7 +36,8 @@ const setRefreshToken = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(ms(Number(env.REFRESH_TOKEN_EXPIRATION)))
+        // 7 days
+        maxAge: 7 * 24 * 60 * 60
     })
 }
 
@@ -45,7 +47,8 @@ const setBetterAuthToken = (res: Response, token: string) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        maxAge: Number(ms(Number(env.BETTER_AUTH_TOKEN_EXPIRATION)))
+        // 1 day
+        maxAge: 60 * 60 * 24
     })
 }
 
