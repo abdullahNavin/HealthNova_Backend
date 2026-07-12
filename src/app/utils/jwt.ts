@@ -8,7 +8,7 @@ const createToken = (payload: JwtPayload, secret: string, options: SignOptions) 
 
 const verifyToken = (token: string, secret: string) => {
     try {
-        const decoded = jwt.verify(token, secret);
+        const decoded = jwt.verify(token, secret) as JwtPayload;
         return {
             success: true,
             message: "Token is valid",

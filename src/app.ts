@@ -3,10 +3,12 @@ import cors from "cors"
 import { indexRoutes } from "./app/routes"
 import { notFound } from "./app/middleware/notFound"
 import { globalErrorHandler } from "./app/middleware/globalError"
+import cookieParser from "cookie-parser"
 
 const app: Application = express()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true

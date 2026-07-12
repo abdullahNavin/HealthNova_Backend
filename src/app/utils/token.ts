@@ -3,7 +3,6 @@ import { createToken } from "./jwt";
 import { env } from "../../config/env";
 import { Response } from "express";
 import { setCookie } from "./cookies";
-import ms from "ms";
 
 const getAccessToken = (payload: JwtPayload) => {
     const accessToken = createToken(payload, env.ACCESS_TOKEN_SECRET,
