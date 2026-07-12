@@ -4,33 +4,13 @@ import { getCookie } from "../../utils/cookies";
 import { verifyToken } from "../../utils/jwt";
 import { env } from "../../../config/env";
 import { Role } from "../../../generated/prisma/enums";
+import { checkAuth } from "../../middleware/checkAuth";
 
 const router: Router = Router()
 
-router.post('/', specialtyController.createSpecialty)
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const accessToken = getCookie(req, "accessToken")
-        if (!accessToken) {
-            throw new Error("Access token not found")
-        }
-        const validateToken = verifyToken(accessToken, env.ACCESS_TOKEN_SECRET)
-        if (!validateToken.success) {
-            throw new Error("Invalid access token")
-        }
-
-        console.log(validateToken.decoded);
-
-        if (validateToken.decoded?.role !== Role.ADMIN) {
-            throw new Error("Unauthorized access")
-        }
-
-        next()
-    } catch (error) {
-        next(error)
-    }
-}, specialtyController.GetAllSpecialty)
-router.delete('/:id', specialtyController.deleteSpecialtyById)
-router.put('/:id', specialtyController.updateSpecialty)
+router.post('/', checkAuth(Role.ADMIN), specialtyController.createSpecialty)
+router.get('/', checkAuth(Role.ADMIN,Role.PATIENT), specialtyController.GetAllSpecialty)
+router.delete('/:id', checkAuth(Role.ADMIN, Role.SUPER_ADMIN), specialtyController.deleteSpecialtyById)
+router.put('/:id', checkAuth(Role.ADMIN, Role.SUPER_ADMIN), specialtyController.updateSpecialty)
 
 export const specialtyRoutes = router
