@@ -1,14 +1,19 @@
 model Patient {
-    id            String    @id @default(uuid())
-    email         String    @unique
-    name          String
-    profilePhoto  String?
-    contactNumber String?
-    address       String?
-    isDeleted     Boolean   @default(false)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    deletedAt     DateTime?
+    id               String              @id @default(uuid())
+    email            String              @unique
+    name             String
+    profilePhoto     String?
+    contactNumber    String?
+    address          String?
+    isDeleted        Boolean             @default(false)
+    createdAt        DateTime            @default(now())
+    updatedAt        DateTime            @updatedAt
+    deletedAt        DateTime?
+    reviews          Review[]
+    prescriptions    Prescription[]
+    appointments     Appointment[]
+    medicalReports   MedicalReport[]
+    patientHelthData PatientHealthData[]
 
     // Relations
     userId String @unique

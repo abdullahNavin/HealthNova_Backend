@@ -19,9 +19,13 @@ model Doctor {
     deletedAt          DateTime?
 
     // Relations
-    userId      String            @unique
-    user        User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    specialties DoctorSpecialty[]
+    userId        String            @unique
+    user          User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    specialties   DoctorSpecialty[]
+    schedules     DoctorSchedules[]
+    reviews       Review[]
+    appointments  Appointment[]
+    prescriptions Prescription[]
 
     @@index([email], name: "idx_doctor_email")
     @@index([isDeleted], name: "idx_doctor_is_deleted")
