@@ -6,13 +6,24 @@ import { StatusCodes } from "http-status-codes";
 
 const getAllDoctors = catchAsync(async (req: Request, res: Response) => {
     const doctors = await doctorsService.getAllDoctors()
-    sendResponse(res,{
-        status:StatusCodes.OK,
-        message:"Fetch doctors data successfully",
-        data:doctors
+    sendResponse(res, {
+        status: StatusCodes.OK,
+        message: "Fetch doctors data successfully",
+        data: doctors
     })
 })
 
-export const doctorController ={
-    getAllDoctors
+const getDoctorById = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params as { id: string }
+    const doctor = await doctorsService.getDoctorById(id)
+    sendResponse(res, {
+        status: StatusCodes.OK,
+        message: "Fetch doctor data successfully",
+        data: doctor
+    })
+})
+
+export const doctorController = {
+    getAllDoctors,
+    getDoctorById
 }
